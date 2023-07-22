@@ -58,8 +58,7 @@ void main() {
           print('Press 2 to Delete Dishes');
           print('Press 3 to Update Dishes');
           print('Press 4 to View Dishes');
-          print('Press 5 to see Total sales');
-          print('Press 6 for pending orders');
+
           print('Press X to exit');
           // user select choice to do operation work
           mang_options = stdin.readLineSync();
