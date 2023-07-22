@@ -12,7 +12,9 @@ List dishes = [
 ];
 
 List customer_orders = [];
-
+List feedback = [
+  {"customer_name": '', "rating": ''}
+];
 // global user_name and password
 String? global_user_name = '';
 String? global_password = '';
@@ -98,7 +100,7 @@ void main() {
             var dish_new_price = stdin.readLineSync();
             for (var i = 0; i < dishes.length; i++) {
               print(dishes[i]);
-              if (dishes[i]["name"] == 'biryani') {
+              if (dishes[i]["name"] == dish_to_search) {
                 dishes[i]["name"] = dish_new_name;
                 dishes[i]["price"] = dish_new_price;
                 print(dishes);
@@ -158,16 +160,55 @@ void main() {
               print(customer_orders);
               print('----------------------------------------');
             }
-          } else if (mang_options == 'X') {
+          }
+          // to edit order
+          else if (mang_options == "3") {
+            print('Pleae order no to edit');
+            var order_to_search = int.parse(stdin.readLineSync()!);
+
+            for (var i = 0; i < customer_orders.length; i++) {
+              if (customer_orders[i]["order_no"] == order_to_search) {
+                print('your order details');
+                print(customer_orders[i]);
+                print('select dish to update your order');
+                for (var j = 0; j < dishes.length; j++) {
+                  print(
+                      'Press ${j + 1} for ${dishes[j]["name"]}, price is ${dishes[j]["price"]} ');
+                }
+                var dish_to_update = int.parse(stdin.readLineSync()!);
+                customer_orders[i]["order_no"] = order_to_search;
+                customer_orders[i]["order_dish"] =
+                    dishes[dish_to_update - 1]["name"];
+                customer_orders[i]["order_price"] =
+                    dishes[dish_to_update - 1]["price"];
+                print('your new order is ');
+                print(customer_orders[i]);
+              }
+
+// see dishes to customer
+            }
+          }
+//for feedback
+          else if (mang_options == "4") {
+            print('Please enter your feedback rating from 1 to 5');
+            var feedback_rating = stdin.readLineSync();
+            feedback.add({
+              "customer_name": "${global_user_name}",
+              "rating": feedback_rating
+            });
+            print(feedback);
+          }
+          // exit
+          else if (mang_options == 'X') {
             program_exit = 'Y';
           }
         }
-        break;
-      } // exit program
-      else {
-        print('Exited');
-        program_start = false;
       }
+
+      // exit program
+    } else {
+      print('Exited');
+      program_start = false;
     }
   }
 }
